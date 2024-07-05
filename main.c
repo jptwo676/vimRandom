@@ -24,39 +24,44 @@ int main(){
     FILE *fh_input;
     
     fh_input = fopen("kbindings.txt", "r");
-    //TODO por esse fgets em um lugar onde ele faça algum sentido
-    fgets(frase, 300, fh_input);
 
-    printf("linhaEscolhida = %d \n", linhaEscolhida);
-    
-
-    //TODO varrer por todas as linhas e parar no momento certo
-    for(int l = 0; l < 228; l++)
+    if(fh_input == NULL)
     {
-        if(linhaEscolhida == l)
-        {
-            printf("linhaEscolhida = %d, f = %d \n", linhaEscolhida, l);
-        }
+        printf("Não foi possivel abrir o arquivo. \n");
+        return 1;
     }
 
 
     //repete a selecao ate que encontre uma frase valida
     do
     {
+        for(int l = 0; l < 228; l++)
+        {
+            fgets(frase, 300, fh_input);
+            if(linhaEscolhida == l)
+            {
+                printf("linhaEscolhida = %d, l = %d \n", linhaEscolhida, l);
+            }
+        }
         headerCheck = detectaHeader(frase);
         printf("headerCheck %d \n", headerCheck);
         printf("Esse é um header, selecionando outra sentença... \n");
+        printf("linhaEscolhida = %d \n", linhaEscolhida);
+        printf("frase = %s \n", frase);
         linhaEscolhida = rand() % 228;
+        
     }
     while(headerCheck == 0);
 
+    //TODO exibit dia e horario
+    printf("Hoje é dia: \n");
+    printf("O comando do dia é: %s \n", frase);
 
     fclose(fh_input); 
 
     return 0;
 }
 
-//TODO fazer com que ele verifique os PRIMEIROS 5 caracteres
 int detectaHeader(char frase[])
 {
     int fraseLen = 0;
