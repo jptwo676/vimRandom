@@ -29,24 +29,24 @@ int main(){
 
     printf("linhaEscolhida = %d \n", linhaEscolhida);
     
+
     //TODO varrer por todas as linhas e parar no momento certo
-    for(int f = 0; f < 228; f++)
+    for(int l = 0; l < 228; l++)
     {
-        if(linhaEscolhida == f){
-            printf("linhaEscolhida = %d, f = %d \n", linhaEscolhida, f);
+        if(linhaEscolhida == l)
+        {
+            printf("linhaEscolhida = %d, f = %d \n", linhaEscolhida, l);
         }
     }
+
+
     //repete a selecao ate que encontre uma frase valida
-    
     do
     {
         headerCheck = detectaHeader(frase);
         printf("headerCheck %d \n", headerCheck);
-        if(headerCheck == 0)
-        {
-            printf("Esse é um header, selecionando outra sentença... \n");
-            linhaEscolhida = rand() % 228;
-        }
+        printf("Esse é um header, selecionando outra sentença... \n");
+        linhaEscolhida = rand() % 228;
     }
     while(headerCheck == 0);
 
@@ -56,6 +56,7 @@ int main(){
     return 0;
 }
 
+//TODO fazer com que ele verifique os PRIMEIROS 5 caracteres
 int detectaHeader(char frase[])
 {
     int fraseLen = 0;
@@ -69,7 +70,12 @@ int detectaHeader(char frase[])
         {
             CAPS++;
         }
-        if(CAPS > 4)
+        else
+        {
+            CAPS = 0;
+        }
+
+        if(CAPS > 5)
         {
             printf("Esse é um Header. \n");
             return 0;
