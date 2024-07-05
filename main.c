@@ -6,6 +6,7 @@
 //abre um arquivo
 //mostra a data, dias consecutivos e uma quote random
 
+//se retorna 0 = header
 int detectaHeader(char frase[]);
 
 //TODO reação pra quando a linha selecionada for vazia
@@ -17,26 +18,38 @@ int main(){
     //o arquivo tem 228 linhas
     int linhaEscolhida = rand() % 228;
     int linha = 0;
+    int headerCheck;
     char frase[300];
 
     FILE *fh_input;
     
     fh_input = fopen("kbindings.txt", "r");
+    //TODO por esse fgets em um lugar onde ele faça algum sentido
     fgets(frase, 300, fh_input);
 
     printf("linhaEscolhida = %d \n", linhaEscolhida);
-    if(detectaHeader(frase) == 0)
-    {
-        printf("%s", frase);
-    }
-
+    
     //TODO varrer por todas as linhas e parar no momento certo
     for(int f = 0; f < 228; f++)
     {
         if(linhaEscolhida == f){
             printf("linhaEscolhida = %d, f = %d \n", linhaEscolhida, f);
-
+        }
     }
+    //repete a selecao ate que encontre uma frase valida
+    
+    do
+    {
+        headerCheck = detectaHeader(frase);
+        printf("headerCheck %d \n", headerCheck);
+        if(headerCheck == 0)
+        {
+            printf("Esse é um header, selecionando outra sentença... \n");
+            linhaEscolhida = rand() % 228;
+        }
+    }
+    while(headerCheck == 0);
+
 
     fclose(fh_input); 
 
