@@ -8,9 +8,8 @@
 
 //se retorna 0 = header
 int detectaHeader(char frase[]);
+char* removeEspacos(char frase[]);
 
-//TODO reação pra quando a linha selecionada for vazia
-//TODO descobrir como pegar uma linha em especifico
 int main(){
 
     srand(time(NULL));
@@ -88,4 +87,24 @@ int detectaHeader(char frase[])
         }
     }
     return 1;
+}
+
+//TODO (joao) remover espaços a partir do terceiro
+char* removeEspacos(char frase[])
+{
+    int countBlank = 0;
+
+    for(int l = 0; l < strlen(frase); l++)
+    {
+        if(frase[l] == ' ')
+        {
+            countBlank++;
+        }
+        else
+        {
+            countBlank = 0;
+        }
+        if(countBlank > 3)
+        {
+    }
 }
