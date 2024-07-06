@@ -18,7 +18,6 @@ int main(){
     //o arquivo tem 228 linhas
     int linhaEscolhida = rand() % 228;
     int linha = 0;
-    int headerCheck;
     char frase[300];
 
     FILE *fh_input;
@@ -32,32 +31,33 @@ int main(){
     }
 
 
-    //repete a selecao ate que encontre uma frase valida
-    do
+    //repete a selecao ate que encontre uma frase na linha certa
+    while(fgets(frase, sizeof frase, fh_input))
     {
-        for(int l = 0; l < 228; l++)
+        if(linha == linhaEscolhida)
         {
-            fgets(frase, 300, fh_input);
-            if(linhaEscolhida == l)
+            //detecta se a frase se trata de um titulo
+            if(detectaHeader(frase) == 1)
             {
-                printf("linhaEscolhida = %d, l = %d \n", linhaEscolhida, l);
+                printf("break \n");
+                break;
+            }
+            else
+            {
+                printf("continue \n");
+                continue;
             }
         }
-        headerCheck = detectaHeader(frase);
-        printf("headerCheck %d \n", headerCheck);
-        printf("Esse é um header, selecionando outra sentença... \n");
-        printf("linhaEscolhida = %d \n", linhaEscolhida);
-        printf("frase = %s \n", frase);
-        linhaEscolhida = rand() % 228;
-        
+        linha++;
     }
-    while(headerCheck == 0);
-
-    //TODO exibit dia e horario
-    printf("Hoje é dia: \n");
-    printf("O comando do dia é: %s \n", frase);
 
     fclose(fh_input); 
+            
+
+    printf("Hoje é dia: \n");
+    printf("Na linha %d \n", linha);
+    printf("Comando do dia é:\n \t %s \n", frase);
+
 
     return 0;
 }
@@ -68,9 +68,10 @@ int detectaHeader(char frase[])
     int CAPS = 0;
 
     fraseLen = strlen(frase);
-    printf("LEN = %d \n", fraseLen);
     for(int l = 0; l < fraseLen; l++)
     {
+        //usa ascii p detectar se existem letras em caps seguidas
+        //todos os titulos do arquivo estao em caps
         if(frase[l] < 91 && frase[l] > 64)
         {
             CAPS++;
