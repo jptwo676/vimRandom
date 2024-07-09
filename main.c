@@ -4,11 +4,10 @@
 #include <string.h>
 
 //abre um arquivo
-//mostra a data, dias consecutivos e uma quote random
+//mostra um comando random
 
 //se retorna 0 = header
 int detectaHeader(char frase[]);
-char* removeEspacos(char frase[]);
 
 int main(){
 
@@ -38,12 +37,10 @@ int main(){
             //detecta se a frase se trata de um titulo
             if(detectaHeader(frase) == 1)
             {
-                printf("break \n");
                 break;
             }
             else
             {
-                printf("continue \n");
                 continue;
             }
         }
@@ -52,15 +49,13 @@ int main(){
 
     fclose(fh_input); 
             
-
-    printf("Hoje é dia: \n");
-    printf("Na linha %d \n", linha);
-    printf("Comando do dia é:\n \t %s \n", frase);
-
+    printf("Comando aleatório:\n \t %s \n", frase);
 
     return 0;
 }
 
+//0 sucesso em achar o header
+//1 falha
 int detectaHeader(char frase[])
 {
     int fraseLen = 0;
@@ -89,22 +84,3 @@ int detectaHeader(char frase[])
     return 1;
 }
 
-//TODO (joao) remover espaços a partir do terceiro
-char* removeEspacos(char frase[])
-{
-    int countBlank = 0;
-
-    for(int l = 0; l < strlen(frase); l++)
-    {
-        if(frase[l] == ' ')
-        {
-            countBlank++;
-        }
-        else
-        {
-            countBlank = 0;
-        }
-        if(countBlank > 3)
-        {
-    }
-}
